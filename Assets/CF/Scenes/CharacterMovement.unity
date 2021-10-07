@@ -267,6 +267,10 @@ PrefabInstance:
       propertyPath: groundCheck2
       value: 
       objectReference: {fileID: 26742668}
+    - target: {fileID: 1091946333976597346, guid: abcb090fc1937074f852203815c84170, type: 3}
+      propertyPath: start
+      value: 
+      objectReference: {fileID: 1680814680}
     - target: {fileID: 1641992103273187959, guid: abcb090fc1937074f852203815c84170, type: 3}
       propertyPath: m_Name
       value: groundCheck
@@ -403,6 +407,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5254269405967010538, guid: abcb090fc1937074f852203815c84170, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5254269406507411584, guid: abcb090fc1937074f852203815c84170, type: 3}
       propertyPath: m_BackGroundColor.r
       value: 0.16470589
@@ -530,6 +538,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a713b8ed03720c14ab8322b0f300f8a7, type: 3}
+--- !u!1 &1680814680 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5254269405967010538, guid: abcb090fc1937074f852203815c84170, type: 3}
+  m_PrefabInstance: {fileID: 1217611626}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &1680814686 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5558344338062672982, guid: abcb090fc1937074f852203815c84170, type: 3}
