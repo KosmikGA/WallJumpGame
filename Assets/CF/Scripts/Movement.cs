@@ -9,6 +9,8 @@ public class Movement : MonoBehaviour
     public float jumpForce;
     private float moveInput;
 
+    public GameObject start;
+
     private bool facingRight = true;
     private bool isGrounded;
     public Transform groundCheck;
@@ -31,6 +33,8 @@ public class Movement : MonoBehaviour
     public float jumpTime;
     public bool isJumping;
 
+    public float currentYPosition;
+
     private Rigidbody2D rb;
     private Collider2D collider;
     public Animator Animator;
@@ -44,6 +48,8 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
+        //currentYPosition = start.transform.position.y;
+
         moveInput = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
 
@@ -111,6 +117,12 @@ public class Movement : MonoBehaviour
         {
             isJumping = false;
         }
+
+        //if (currentYPosition < -start.transform.position.y && wallSliding == true)
+        //{
+        //    Animator.SetBool("climbing", true);
+        //}
+
     }
 
     //Update is called once per frame
