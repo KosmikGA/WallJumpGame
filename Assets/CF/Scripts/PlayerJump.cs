@@ -6,7 +6,7 @@ public class PlayerJump : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Collider2D collider;
-    public float speed;
+    public float walkSpeed;
     public float jumpForce;
     private float moveInput;
 
@@ -32,8 +32,8 @@ public class PlayerJump : MonoBehaviour
 
     void FixedUpdate()
     {
-        moveInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+        moveInput = Input.GetAxis("Horizontal");
+        rb.velocity = new Vector2(moveInput * walkSpeed, rb.velocity.y);
     }
 
     // Update is called once per frame
