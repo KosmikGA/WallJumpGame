@@ -139,15 +139,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 678616ed85e8e5a488d19b99dc92205b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a5dbb6488163f624db70a370e7270fe1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.96, y: 0.96}
+  m_Size: {x: 0.2, y: 0.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &5254269405967010517
@@ -159,13 +159,13 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5254269405967010538}
   m_BodyType: 0
-  m_Simulated: 0
+  m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 5
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -184,18 +184,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.005265236}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.96, y: 0.96}
-    newSize: {x: 0.96, y: 0.96}
+    oldSize: {x: 1.625, y: 1.625}
+    newSize: {x: 0.2, y: 0.2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.96, y: 0.96}
+  m_Size: {x: 0.96, y: 1.3543253}
   m_EdgeRadius: 0
 --- !u!95 &5558344338062672982
 Animator:
@@ -228,23 +228,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e99c0d2f0ced684b8106662b99c3bd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  Animator: {fileID: 5558344338062672982}
   speed: 5
-  jumpForce: 15
+  jumpForce: 8
   groundCheck: {fileID: 8209934619014976484}
-  groundCheck2: {fileID: 0}
-  checkRadius: 1
+  groundCheck2: {fileID: 5019107666874538974}
+  checkRadius: 0.3
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
   frontCheck: {fileID: 4357603944264282577}
-  wallSliding: 0
-  wallSlidingSpeed: 1
-  xWallForce: 30
-  yWallForce: 15
+  wallSlidingSpeed: 3
+  xWallForce: 3
+  yWallForce: 10
   wallJumpTime: 0.05
-  jumpTime: 0
-  isJumping: 0
-  Animator: {fileID: 0}
+  jumpTime: 0.35
+  extraJumpsValue: 1
 --- !u!1 &5254269406507411591
 GameObject:
   m_ObjectHideFlags: 0

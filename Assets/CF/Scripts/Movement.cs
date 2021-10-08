@@ -5,12 +5,14 @@ using UnityEngine.Animations;
 
 public class Movement : MonoBehaviour
 {
+    public GameManager manager;
+    public Animator Animator;
+
     public float speed;
     public float jumpForce;
     private float moveInput;
 
-    public GameObject start;
-
+    //sprite direction and ground check
     private bool facingRight = true;
     private bool isGrounded;
     public Transform groundCheck;
@@ -19,38 +21,42 @@ public class Movement : MonoBehaviour
     public float checkRadius;
     public LayerMask whatIsGround;
 
+    //wall sliding
     bool isTouchingFront;
     public Transform frontCheck;
-    public bool wallSliding;
+    private bool wallSliding;
     public float wallSlidingSpeed;
 
+    //wall jumping
     bool wallJumping;
     public float xWallForce;
     public float yWallForce;
     public float wallJumpTime;
 
+    //charge jump
     private float jumpTimeCounter;
     public float jumpTime;
-    public bool isJumping;
+    private bool isJumping;
 
-    public float currentYPosition;
+    //double jump
+    private int extraJumps;
+    public int extraJumpsValue;
 
     private Rigidbody2D rb;
     private Collider2D collider;
-    public Animator Animator;
 
     // Start is called before the first frame update
     void Start()
     {
+        extraJumps = extraJumpsValue;
         rb = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
     }
 
     private void Update()
     {
-        //currentYPosition = start.transform.position.y;
-
-        moveInput = Input.GetAxis("Horizontal");
+        //horizontal movement
+        moveInput = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
 
         Animator.SetFloat("speed", Mathf.Abs(rb.velocity.y));
@@ -62,9 +68,11 @@ public class Movement : MonoBehaviour
             rb.velocity = Vector2.up * jumpForce;
         }
 
+        //ground checks
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
         isGrounded2 = Physics2D.OverlapCircle(groundCheck2.position, checkRadius, whatIsGround);
 
+        //wall touching check and animations
         isTouchingFront = Physics2D.OverlapCircle(frontCheck.position, checkRadius, whatIsGround);
 
         if (isTouchingFront == true && isGrounded == false && moveInput != 0)
@@ -78,11 +86,13 @@ public class Movement : MonoBehaviour
             Animator.SetBool("isSliding", false);
         }
 
+        //wall sliding speed
         if (wallSliding == true)
         {
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
         }
 
+        //start wall jumping
         if (Input.GetKeyDown(KeyCode.Space) && wallSliding == true)
         {
             wallJumping = true;
@@ -91,7 +101,8 @@ public class Movement : MonoBehaviour
 
         if (wallJumping == true)
         {
-            rb.velocity = new Vector2(xWallForce * -moveInput, yWallForce);
+            isGrounded = true;
+            rb.velocity = new Vector2(xWallForce * moveInput, yWallForce);
         }
 
         if (isGrounded2 == true && Input.GetKeyDown(KeyCode.Space))
@@ -101,6 +112,7 @@ public class Movement : MonoBehaviour
             rb.velocity = Vector2.up * jumpForce;
         }
 
+        //charge jump
         if (Input.GetKey(KeyCode.Space) && isJumping == true)
         {
             if (jumpTimeCounter > 0)
@@ -118,17 +130,29 @@ public class Movement : MonoBehaviour
             isJumping = false;
         }
 
-        //if (currentYPosition < -start.transform.position.y && wallSliding == true)
-        //{
-        //    Animator.SetBool("climbing", true);
-        //}
+        //double jump
+        if (Input.GetKeyDown(KeyCode.Space) && extraJumps > 0)
+        {
+            rb.velocity = Vector2.up * jumpForce;
+            extraJumps--;
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && extraJumps == 0 && isGrounded == true)
+        {
+            rb.velocity = Vector2.up * jumpForce;
+        }
+
+        if (isGrounded == true)
+        {
+            extraJumps = extraJumpsValue;
+        }
+
 
     }
 
     //Update is called once per frame
     void FixedUpdate()
     {
-
+        //sprite direction
         if (facingRight == false && moveInput > 0)
         {
             Flip();
@@ -146,6 +170,7 @@ public class Movement : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        //gizmos for ground and wall checks
         Gizmos.color = Color.green;
         Gizmos.DrawCube(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 0.5f), new Vector2(0.9f, 0.2f));
 
@@ -161,7 +186,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-        void Flip()
+    void Flip()
     {
         facingRight = !facingRight;
         Vector3 Rotate = transform.localScale;
@@ -169,21 +194,12 @@ public class Movement : MonoBehaviour
         transform.localScale = Rotate;
     }
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.tag == "Right")
-    //    {
-    //        //Flip();
-    //        Vector3 Rotate = transform.localScale;
-    //        Rotate.x *= -1;
-    //        transform.localScale = Rotate;
-    //    }
-    //    else if (collision.gameObject.tag == "Left")
-    //    {
-    //        //Flip();
-    //        Vector3 Rotate = transform.localScale;
-    //        Rotate.x *= 1;
-    //        transform.localScale = Rotate;
-    //    }
-    //}
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Spike"))
+        {
+            manager.GameFail();
+
+        }
+    }
 }
