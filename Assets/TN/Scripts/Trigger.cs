@@ -6,6 +6,8 @@ public class Trigger : MonoBehaviour
 {
     Spawn_Death Manager;
 
+    public GameObject Locator = null;
+
 
 
     // Start is called before the first frame update
@@ -19,6 +21,7 @@ public class Trigger : MonoBehaviour
         if (other.gameObject.CompareTag("Trigger"))
         {
             Manager.spawnSpike();
+            Manager.spawnWall(Locator);
         }
     }
 
