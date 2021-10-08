@@ -36,12 +36,13 @@ public class Spawn_Death : MonoBehaviour
             {
                 Debug.Log("spawn right");
 
-                a.transform.position = new Vector3(2.5f, player.transform.position.y + spawnHeightOffset + offset, 0.84f);
+                a.transform.position = new Vector3(2.44f, player.transform.position.y + spawnHeightOffset + offset, 0.84f);
             }
             else
             {
                 Debug.Log("spawn left");
-                a.transform.position = new Vector3(-2.5f, player.transform.position.y + spawnHeightOffset + offset, 0.84f);
+                a.transform.position = new Vector3(-2.44f, player.transform.position.y + spawnHeightOffset + offset, 0.84f);
+                a.GetComponent<SpriteRenderer>().flipY = true;
             }
             offset += 4;
             spikeColection.Enqueue(a);
@@ -51,7 +52,7 @@ public class Spawn_Death : MonoBehaviour
     public void spawnWall(GameObject spawnPos)
     {
         GameObject b = Instantiate(wallPrefab);
-        b.transform.position = new Vector2(1.495008f, spawnPos.transform.position.y + wallHeightOffset);
+        b.transform.position = new Vector2(0f, spawnPos.transform.position.y + wallHeightOffset);
         wallColection.Enqueue(b);
     }
 
